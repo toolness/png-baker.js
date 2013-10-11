@@ -146,10 +146,10 @@ PNGBaker.prototype = {
     for (i = 0; i < chunk.data.length; i++)
       data.setUint8(8 + i, chunk.data[i]);
     data.setUint32(8 + chunk.data.length, this._crc32(crcData));
-    return new Uint8Array(buffer);
+    return buffer;
   },
   toBlob: function() {
-    var parts = [new Uint8Array(this.PNG_SIGNATURE)];
+    var parts = [new Uint8Array(this.PNG_SIGNATURE).buffer];
     var makeChunk = this._makeChunk.bind(this);
 
     parts.push(makeChunk(this._chunks[0]));
