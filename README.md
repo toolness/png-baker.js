@@ -9,7 +9,7 @@ then manipulate this data and re-encode the baked PNG.
 
 The library requires support for [Typed Arrays][] and the [File API][].
 It has been verified to work on Internet Explorer 10, Chrome 30, Opera 12,
-and Firefox 24.
+Safari 6, and Firefox 24.
 
 ## Usage
 
