@@ -5,7 +5,7 @@ the browser.
 The file simply reads the chunks in a PNG file as per the
 [PNG specification][]. It leaves all chunks untouched except for
 `tEXt` chunks, which it parses and exposes via an API. Clients can
-then manipulate this data and re-encode the baked PNG 
+then manipulate this data and re-encode the baked PNG.
 
 The library requires support for [Typed Arrays][] and the [File API][].
 It has been verified to work on Internet Explorer 10, Safari 6
