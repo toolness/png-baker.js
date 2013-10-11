@@ -37,9 +37,23 @@ reader.readAsDataURL(baker.toBlob());
 
 ## Limitations
 
-The PNG specification recommends that `tEXt` chunks be encoded in
-Latin-1. This library doesn't do that for you, though you're welcome to
-do the encoding/decoding yourself.
+* Part of the reason this library is relatively small is because it
+  completely ignores actual image data. Of course, this is also a
+  limitation of the library, too. If you need such functionality, you
+  may want to look at [png.js][].
+
+* The API is fully synchronous and holds all PNG data in memory (i.e., it's
+  not streaming). So you might not want to use this library with ridiculously
+  large pictures.
+
+* The PNG specification recommends that `tEXt` chunks be encoded in
+  Latin-1. This library doesn't do that for you, though you're welcome to
+  do the encoding/decoding yourself.
+
+* When serializing to a PNG, the `tEXt` chunks are always inserted after
+  the first `IHDR` chunk in no specific order. This means that reading
+  a PNG and immediately re-serializing it doesn't necessarily result in
+  the exact same binary data.
 
 ## License
 
@@ -48,4 +62,5 @@ Public Domain [CC0 1.0 Universal][cczero].
   [Typed Arrays]: http://caniuse.com/#feat=typedarrays
   [File API]: http://caniuse.com/#feat=fileapi
   [PNG specification]: http://www.w3.org/TR/REC-png-multi.html
+  [png.js]: https://github.com/devongovett/png.js
   [cczero]: http://creativecommons.org/publicdomain/zero/1.0/
