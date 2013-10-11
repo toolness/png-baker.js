@@ -123,6 +123,10 @@ PNGBaker.prototype = {
       table[i] = reverse(c, 32);
     }
 
+    // This is a fix for Safari, which dislikes Uint8 arrays, but only
+    // when Web Inspector is disabled.
+    s = [].slice.call(s);
+
     for (i = 0; i < s.length; i++) {
       c = s[i];
       if (c > 255) {
