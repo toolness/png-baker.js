@@ -1,4 +1,4 @@
-`png-baker.js` is a small (1.3k minified and gzipped) library that
+**png-baker.js** is a small (1.3k minified and gzipped) library that
 makes it easy to read and write custom textual data in PNG files from
 the browser.
 
