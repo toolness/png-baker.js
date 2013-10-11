@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>png-baker.js tests</title>
+<link rel="stylesheet" href="qunit.css">
+<div id="qunit"></div>
+<div id="qunit-fixture">
+  <!-- taken from http://en.wikipedia.org/wiki/Data_URI_scheme -->
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" id="dot">
+</div>
+<script src="qunit.js"></script>
+<script src="../png-baker.js"></script>
+<script>
+var dot = document.querySelector("#dot");
+
+asyncTest("PNG w/o tEXt chunks re-encodes properly", function() {
+  var baker = new PNGBaker(dot.src);
+  equal(Object.keys(baker.textChunks).length, 0,
+        "sample image contains no text chunks");
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    equal(dot.src, reader.result, "generated data URL is unchanged");
+    start();
+  };
+  reader.readAsDataURL(baker.toBlob());
+});
+
+asyncTest("new tEXt chunks are stored in PNG", function() {
+  var baker = new PNGBaker(dot.src);
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    var newBaker = new PNGBaker(reader.result);
+    equal(newBaker.textChunks.foo, 'bar');
+    start();
+  };
+  baker.textChunks.foo = 'bar';
+  reader.readAsArrayBuffer(baker.toBlob());
+});
+
+test("bad PNG signature throws error", function() {
+  throws(function() {
+    new PNGBaker('data:image/png;base64,' + btoa('lololololol'));
+  }, /PNG signature mismatch/, "LOL");
+});
+</script>
