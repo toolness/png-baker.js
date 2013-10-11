@@ -25,14 +25,10 @@ var baker = new PNGBaker(dot);
 // The textChunks object can be used to read/write information.
 baker.textChunks['Description'] = 'Red dot';
 
-// To write the result back out to a file, use the FileReader API.
-var reader = new FileReader();
-reader.onloadend = function() {
-  var img = new Image();
-  img.src = reader.result;
-  document.body.appendChild(img);
-};
-reader.readAsDataURL(baker.toBlob());
+// To write the result back out to a file, use the toBlob() method.
+var img = new Image();
+img.src = URL.createObjectURL(baker.toBlob());
+document.body.appendChild(img);
 ```
 
 ## Limitations
