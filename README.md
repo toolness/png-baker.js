@@ -51,6 +51,11 @@ document.body.appendChild(img);
   a PNG and immediately re-serializing it doesn't necessarily result in
   the exact same binary data.
 
+* Note that choosing "Save Image As..." from the context menu of most
+  browsers will save any `tEXt` chunks in the PNG, but IE10 strips them
+  out. One workaround is to intercept `contextmenu` events on the image
+  and use [navigator.msSaveOrOpenBlob()][ie10fix].
+
 ## License
 
 Public Domain [CC0 1.0 Universal][cczero].
@@ -59,4 +64,5 @@ Public Domain [CC0 1.0 Universal][cczero].
   [File API]: http://caniuse.com/#feat=fileapi
   [PNG specification]: http://www.w3.org/TR/REC-png-multi.html
   [png.js]: https://github.com/devongovett/png.js
+  [ie10fix]: http://msdn.microsoft.com/en-us/library/ie/hh772332%28v=vs.85%29.aspx
   [cczero]: http://creativecommons.org/publicdomain/zero/1.0/
